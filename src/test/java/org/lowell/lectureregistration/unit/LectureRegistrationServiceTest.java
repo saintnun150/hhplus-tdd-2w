@@ -1,4 +1,4 @@
-package org.lowell.lectureregistration.domain.service;
+package org.lowell.lectureregistration.unit;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

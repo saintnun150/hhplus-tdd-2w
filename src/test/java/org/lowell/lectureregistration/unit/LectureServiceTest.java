@@ -1,8 +1,11 @@
-package org.lowell.lectureregistration.domain.lecture;
+package org.lowell.lectureregistration.unit;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.lowell.lectureregistration.domain.lecture.LectureInfo;
+import org.lowell.lectureregistration.domain.lecture.LectureRepository;
+import org.lowell.lectureregistration.domain.lecture.LectureService;
 import org.lowell.lectureregistration.domain.lecture.exception.LectureError;
 import org.lowell.lectureregistration.domain.lecture.exception.LectureException;
 import org.mockito.InjectMocks;
