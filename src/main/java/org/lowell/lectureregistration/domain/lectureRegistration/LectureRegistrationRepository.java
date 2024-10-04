@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface LectureRegistrationRepository {
     LectureRegistrationInfo getLectureRegistrationInfo(String lectureId, String userId);
-    void insert(String lectureId, String userId);
-    List<LectureRegistrationInfo> getAllLectureRegistrationInfoByUserId(String userId);
+    LectureRegistrationInfo insert(String lectureId, String userId);
+    List<LectureRegistrationInfo> getAllLectureRegistrationInfoByUser(String userId);
+    List<LectureRegistrationInfo> getAllLectureRegistrationInfoByLecture(String lectureId);
+
 }

@@ -14,7 +14,7 @@ import java.util.List;
 public class LectureRegistrationService {
     private final LectureRegistrationRepository lectureRegistrationRepository;
 
-    public void registerLecture(String lectureId, String userId) {
+    public void createLectureRegistration(String lectureId, String userId) {
         LectureRegistrationInfo registrationInfo = lectureRegistrationRepository.getLectureRegistrationInfo(lectureId,
                                                                                                             userId);
         if (registrationInfo != null) {
@@ -24,7 +24,11 @@ public class LectureRegistrationService {
         lectureRegistrationRepository.insert(lectureId, userId);
     }
 
-    public List<LectureRegistrationInfo> getAllLectureRegistrationInfoByUserId(String userId) {
-        return lectureRegistrationRepository.getAllLectureRegistrationInfoByUserId(userId);
+    public List<LectureRegistrationInfo> getAllLectureRegistrationByUser(String userId) {
+        return lectureRegistrationRepository.getAllLectureRegistrationInfoByUser(userId);
+    }
+
+    public List<LectureRegistrationInfo> getAllLectureRegistrationByLecture(String lectureId) {
+        return lectureRegistrationRepository.getAllLectureRegistrationInfoByLecture(lectureId);
     }
 }

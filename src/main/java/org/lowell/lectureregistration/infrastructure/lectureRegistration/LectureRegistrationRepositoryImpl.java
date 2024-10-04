@@ -16,25 +16,31 @@ public class LectureRegistrationRepositoryImpl implements LectureRegistrationRep
 
     @Override
     public LectureRegistrationInfo getLectureRegistrationInfo(String lectureId, String userId) {
-        LectureRegistrationEntity entity = jpaRepository.findById(new LectureRegistrationEntity.ID(lectureId, userId))
-                                                        .orElse(null);
+        LectureRegistrationEntity entity = jpaRepository.findByLectureIdAndUserId(lectureId, userId);
         return LectureRegistrationEntity.toPojo(entity);
     }
 
     @Transactional
     @Override
-    public void insert(String lectureId, String userId) {
+    public LectureRegistrationInfo insert(String lectureId, String userId) {
         LectureRegistrationEntity entity = LectureRegistrationEntity.builder()
-                                                                   .lectureId(lectureId)
-                                                                   .userId(userId)
-                                                                   .createdAt(LocalDateTime.now())
-                                                                   .build();
-        jpaRepository.save(entity);
+                                                                    .lectureId(lectureId)
+                                                                    .userId(userId)
+                                                                    .createdAt(LocalDateTime.now())
+                                                                    .build();
+        LectureRegistrationEntity save = jpaRepository.save(entity);
+        return org.lowell.lectureregistration.infrastructure.lectureRegistration.LectureRegistrationEntity.toPojo(save);
     }
 
     @Override
-    public List<LectureRegistrationInfo> getAllLectureRegistrationInfoByUserId(String userId) {
+    public List<LectureRegistrationInfo> getAllLectureRegistrationInfoByUser(String userId) {
         List<LectureRegistrationEntity> entities = jpaRepository.findAllByUserId(userId);
+        return LectureRegistrationEntity.toPojoList(entities);
+    }
+
+    @Override
+    public List<LectureRegistrationInfo> getAllLectureRegistrationInfoByLecture(String lectureId) {
+        List<LectureRegistrationEntity> entities = jpaRepository.findAllByLectureId(lectureId);
         return LectureRegistrationEntity.toPojoList(entities);
     }
 

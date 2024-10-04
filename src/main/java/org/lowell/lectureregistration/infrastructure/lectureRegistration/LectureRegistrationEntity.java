@@ -1,50 +1,36 @@
 package org.lowell.lectureregistration.infrastructure.lectureRegistration;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.lowell.lectureregistration.domain.lectureRegistration.LectureRegistrationInfo;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "t_lecture_registration")
-@IdClass(LectureRegistrationEntity.ID.class)
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LectureRegistrationEntity implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 7295778408568464652L;
+public class LectureRegistrationEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long lectureRegistrationId;
+
+    @Column(nullable = false)
     private String lectureId;
 
-    @Id
+    @Column(nullable = false)
     private String userId;
 
     @Column
     private LocalDateTime createdAt;
-
-    @Data
-    @NoArgsConstructor
-    public static class ID implements Serializable {
-        @Serial
-        private static final long serialVersionUID = 3387460001894584362L;
-
-        private String lectureId;
-        private String userId;
-
-        public ID(String lectureId, String userId) {
-            this.lectureId = lectureId;
-            this.userId = userId;
-        }
-    }
 
     public static LectureRegistrationInfo toPojo(LectureRegistrationEntity entity) {
         if (entity == null) {

@@ -37,7 +37,7 @@ class LectureRegistrationServiceTest {
         when(lectureRegistrationRepository.getLectureRegistrationInfo(lectureId, userId))
                 .thenReturn(new LectureRegistrationInfo(lectureId, userId, LocalDateTime.now()));
 
-        assertThatThrownBy(() -> lectureRegistrationService.registerLecture(lectureId, userId))
+        assertThatThrownBy(() -> lectureRegistrationService.createLectureRegistration(lectureId, userId))
                 .isInstanceOf(LectureRegistrationException.class)
                 .extracting(e -> ((LectureRegistrationException) e).getErrorResponse().code(),
                             e -> ((LectureRegistrationException) e).getErrorResponse().message())
@@ -45,15 +45,15 @@ class LectureRegistrationServiceTest {
                                  LectureRegistrationError.DUPLICATED_LECTURE_REGISTRATION.getErrorResponse().message());
     }
 
-    @DisplayName("특강 신청 완료된 목록을 조회한다.")
+    @DisplayName("특정 사용자의 특강 신청 완료된 목록을 조회한다.")
     @Test
     void searchUserLectureRegistration() {
         String userId = "sid1";
 
-        when(lectureRegistrationRepository.getAllLectureRegistrationInfoByUserId(userId))
+        when(lectureRegistrationRepository.getAllLectureRegistrationInfoByUser(userId))
                 .thenReturn(List.of(new LectureRegistrationInfo("lectureId1", "sid1", LocalDateTime.now()), new LectureRegistrationInfo("lectureId2", "sid2", LocalDateTime.now())));
 
-        List<LectureRegistrationInfo> items = lectureRegistrationService.getAllLectureRegistrationInfoByUserId(userId);
+        List<LectureRegistrationInfo> items = lectureRegistrationService.getAllLectureRegistrationByUser(userId);
 
         assertThat(items.size()).isEqualTo(2);
     }
