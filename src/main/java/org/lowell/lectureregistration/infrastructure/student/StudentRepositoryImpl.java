@@ -6,6 +6,7 @@ import org.lowell.lectureregistration.domain.student.StudentRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -28,6 +29,12 @@ public class StudentRepositoryImpl implements StudentRepository {
                                                    .build();
         StudentEntity save = jpaRepository.save(studentEntity);
         return StudentEntity.toPojo(save);
+    }
+
+    @Override
+    public List<StudentInfo> getAllStudentInfo() {
+        List<StudentEntity> items = jpaRepository.findAll();
+        return StudentEntity.toPojoList(items);
     }
 
 

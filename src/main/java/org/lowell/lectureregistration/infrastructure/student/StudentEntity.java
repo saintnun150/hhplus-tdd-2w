@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import org.lowell.lectureregistration.domain.student.StudentInfo;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "t_student")
@@ -36,5 +38,16 @@ public class StudentEntity {
         return new StudentInfo(studentEntity.getUserId(),
                                studentEntity.getUsername(),
                                studentEntity.getCreatedAt());
+    }
+
+    public static List<StudentInfo> toPojoList(List<StudentEntity> entities) {
+        if (entities == null) {
+            return null;
+        }
+        List<StudentInfo> items = new ArrayList<>();
+        for (StudentEntity entity : entities) {
+            items.add(toPojo(entity));
+        }
+        return items;
     }
 }
