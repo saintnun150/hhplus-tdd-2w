@@ -1,4 +1,4 @@
-package org.lowell.lectureregistration.infrastructure.teacherLecture;
+package org.lowell.lectureregistration.infrastructure.lectureAssignment;
 
 import lombok.RequiredArgsConstructor;
 import org.lowell.lectureregistration.domain.lectureAssignment.LectureAssignmentInfo;

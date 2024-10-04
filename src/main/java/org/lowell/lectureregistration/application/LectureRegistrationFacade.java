@@ -39,6 +39,12 @@ public class LectureRegistrationFacade {
     }
 
     public List<LectureRegistrationInfo> getAllLectureRegistrations(LectureCommand.SearchLectureRequest command) {
+        if (command == null) {
+            return null;
+        }
+        if (command.lectureId() != null) {
+            return lectureRegistrationService.getAllLectureRegistrationByLecture(command.lectureId());
+        }
         return lectureRegistrationService.getAllLectureRegistrations();
     }
 

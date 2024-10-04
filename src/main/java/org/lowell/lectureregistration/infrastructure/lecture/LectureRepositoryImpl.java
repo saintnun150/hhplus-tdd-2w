@@ -22,6 +22,12 @@ public class LectureRepositoryImpl implements LectureRepository {
         return LectureEntity.toPojo(entity);
     }
 
+    @Override
+    public LectureInfo getLectureInfoWithLock(String lectureId) {
+        LectureEntity entity = jpaRepository.findByIdWithLock(lectureId);
+        return LectureEntity.toPojo(entity);
+    }
+
     @Transactional
     @Override
     public LectureInfo increaseCurrentRegistrationCnt(String lectureId) {
@@ -50,6 +56,4 @@ public class LectureRepositoryImpl implements LectureRepository {
         List<LectureEntity> items = jpaRepository.getLecturesWithApplyDataAndNotDeleted(applyDate);
         return LectureEntity.toPojoList(items);
     }
-
-
 }
