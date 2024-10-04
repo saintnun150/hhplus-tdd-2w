@@ -1,4 +1,4 @@
-package org.lowell.lectureregistration.infrastructure.teacherLecture;
+package org.lowell.lectureregistration.infrastructure.lectureAssignment;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
