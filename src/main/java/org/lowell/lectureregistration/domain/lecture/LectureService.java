@@ -14,7 +14,7 @@ public class LectureService {
     private final LectureRepository lectureRepository;
 
     public LectureInfo getLectureInfo(String lectureId) {
-        LectureInfo lectureInfo = lectureRepository.getLectureInfo(lectureId);
+        LectureInfo lectureInfo = lectureRepository.getLectureInfoWithLock(lectureId);
         if (lectureInfo == null) {
             throw new LectureException(LectureError.NOT_FOUND_LECTURE);
         }
