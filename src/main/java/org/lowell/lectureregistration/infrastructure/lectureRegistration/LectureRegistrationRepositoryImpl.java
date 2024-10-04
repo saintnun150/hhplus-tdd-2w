@@ -44,4 +44,10 @@ public class LectureRegistrationRepositoryImpl implements LectureRegistrationRep
         return LectureRegistrationEntity.toPojoList(entities);
     }
 
+    @Override
+    public List<LectureRegistrationInfo> getAllLectureRegistrationInfo() {
+        List<LectureRegistrationEntity> entities = jpaRepository.findAll();
+        return LectureRegistrationEntity.toPojoList(entities);
+    }
+
 }

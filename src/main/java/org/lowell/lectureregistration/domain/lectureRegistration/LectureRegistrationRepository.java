@@ -7,5 +7,6 @@ public interface LectureRegistrationRepository {
     LectureRegistrationInfo insert(String lectureId, String userId);
     List<LectureRegistrationInfo> getAllLectureRegistrationInfoByUser(String userId);
     List<LectureRegistrationInfo> getAllLectureRegistrationInfoByLecture(String lectureId);
+    List<LectureRegistrationInfo> getAllLectureRegistrationInfo();
 
 }
