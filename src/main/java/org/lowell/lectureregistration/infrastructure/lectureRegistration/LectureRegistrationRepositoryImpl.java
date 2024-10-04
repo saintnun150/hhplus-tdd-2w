@@ -23,18 +23,25 @@ public class LectureRegistrationRepositoryImpl implements LectureRegistrationRep
 
     @Transactional
     @Override
-    public void insert(String lectureId, String userId) {
+    public LectureRegistrationInfo insert(String lectureId, String userId) {
         LectureRegistrationEntity entity = LectureRegistrationEntity.builder()
                                                                    .lectureId(lectureId)
                                                                    .userId(userId)
                                                                    .createdAt(LocalDateTime.now())
                                                                    .build();
-        jpaRepository.save(entity);
+        LectureRegistrationEntity save = jpaRepository.save(entity);
+        return LectureRegistrationEntity.toPojo(save);
     }
 
     @Override
     public List<LectureRegistrationInfo> getAllLectureRegistrationInfoByUserId(String userId) {
         List<LectureRegistrationEntity> entities = jpaRepository.findAllByUserId(userId);
+        return LectureRegistrationEntity.toPojoList(entities);
+    }
+
+    @Override
+    public List<LectureRegistrationInfo> getAllLectureRegistrationInfoByLectureId(String lectureId) {
+        List<LectureRegistrationEntity> entities = jpaRepository.findAllByLectureId(lectureId);
         return LectureRegistrationEntity.toPojoList(entities);
     }
 

@@ -3,7 +3,6 @@ package org.lowell.lectureregistration.infrastructure.teacherLecture;
 import jakarta.persistence.*;
 import lombok.*;
 import org.lowell.lectureregistration.domain.teacherLecture.TeacherLectureInfo;
-import org.lowell.lectureregistration.infrastructure.lectureRegistration.LectureRegistrationEntity;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -12,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "t_teacher_lecture_n")
-@IdClass(LectureRegistrationEntity.ID.class)
+@Table(name = "t_teacher_lecture")
+@IdClass(TeacherLectureEntity.ID.class)
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

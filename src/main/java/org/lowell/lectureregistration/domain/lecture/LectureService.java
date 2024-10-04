@@ -14,7 +14,7 @@ public class LectureService {
     private final LectureRepository lectureRepository;
 
     public LectureInfo getLectureInfo(String lectureId) {
-        LectureInfo lectureInfo = lectureRepository.getLectureInfo(lectureId);
+        LectureInfo lectureInfo = lectureRepository.getLectureInfoWithLock(lectureId);
         if (lectureInfo == null) {
             throw new LectureException(LectureError.NOT_FOUND_LECTURE);
         }
@@ -32,5 +32,10 @@ public class LectureService {
 
     public LectureInfo increaseCurrentRegistrationCnt(String lectureId) {
         return lectureRepository.increaseCurrentRegistrationCnt(lectureId);
+    }
+
+    public void insertLecture(LectureCommand.Create lectureCommand) {
+        lectureRepository.insert(lectureCommand.lectureId(),
+                                 lectureCommand.appliedAt());
     }
 }

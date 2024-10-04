@@ -27,4 +27,8 @@ public class LectureRegistrationService {
     public List<LectureRegistrationInfo> getAllLectureRegistrationInfoByUserId(String userId) {
         return lectureRegistrationRepository.getAllLectureRegistrationInfoByUserId(userId);
     }
+
+    public List<LectureRegistrationInfo> getAllLectureRegistrationInfoByLectureId(String lectureId) {
+        return lectureRegistrationRepository.getAllLectureRegistrationInfoByLectureId(lectureId);
+    }
 }

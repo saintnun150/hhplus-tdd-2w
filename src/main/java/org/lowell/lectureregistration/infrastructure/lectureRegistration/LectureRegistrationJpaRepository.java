@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface LectureRegistrationJpaRepository extends JpaRepository<LectureRegistrationEntity, LectureRegistrationEntity.ID> {
     List<LectureRegistrationEntity> findAllByUserId(String userId);
+    List<LectureRegistrationEntity> findAllByLectureId(String lectureId);
 }
