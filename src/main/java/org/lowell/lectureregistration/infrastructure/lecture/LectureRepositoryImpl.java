@@ -32,8 +32,24 @@ public class LectureRepositoryImpl implements LectureRepository {
     }
 
     @Override
-    public List<LectureInfo> getAvailableLectureInfoList(LocalDateTime applyDate) {
+    public LectureInfo insert(String lectureId, LocalDateTime applyDate) {
+        LectureEntity entity = LectureEntity.builder()
+                                            .lectureId(lectureId)
+                                            .lectureName(lectureId + "과목")
+                                            .lectureDescription(lectureId + "강의 입니다.")
+                                            .createdAt(LocalDateTime.now())
+                                            .appliedAt(applyDate)
+                                            .currentRegistrationCnt(0)
+                                            .build();
+        LectureEntity save = jpaRepository.save(entity);
+        return LectureEntity.toPojo(save);
+    }
+
+    @Override
+    public List<LectureInfo> getLecturesByApplyDate(LocalDateTime applyDate) {
         List<LectureEntity> items = jpaRepository.getLecturesWithApplyDataAndNotDeleted(applyDate);
         return LectureEntity.toPojoList(items);
     }
+
+
 }

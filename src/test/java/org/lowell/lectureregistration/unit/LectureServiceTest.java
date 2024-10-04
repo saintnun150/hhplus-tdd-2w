@@ -93,9 +93,9 @@ class LectureServiceTest {
     void throwException_when_available_lecture_is_not_found() {
         LocalDateTime applyDate = LocalDateTime.now().with(LocalTime.MIN);
 
-        when(lectureRepository.getAvailableLectureInfoList(applyDate)).thenReturn(null);
+        when(lectureRepository.getLecturesByApplyDate(applyDate)).thenReturn(null);
 
-        assertThatThrownBy(() -> lectureService.getAvailableLectureInfoList(applyDate))
+        assertThatThrownBy(() -> lectureService.getLecturesByApplyDate(applyDate))
                 .extracting(e -> ((LectureException) e).getErrorResponse().code(),
                             e -> ((LectureException) e).getErrorResponse().message())
                 .containsExactly(LectureError.NOT_FOUND_AVAILABLE_LECTURES.getErrorResponse().code(),

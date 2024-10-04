@@ -21,16 +21,23 @@ public class LectureService {
         return lectureInfo;
     }
 
-    public List<LectureInfo> getAvailableLectureInfoList(LocalDateTime applyDate) {
-        List<LectureInfo> lectureInfoList = lectureRepository.getAvailableLectureInfoList(applyDate);
+    public List<LectureInfo> getLecturesByApplyDate(LocalDateTime applyDate) {
+        List<LectureInfo> lectureInfoList = lectureRepository.getLecturesByApplyDate(applyDate);
         if (lectureInfoList == null) {
             throw new LectureException(LectureError.NOT_FOUND_AVAILABLE_LECTURES);
         }
         return lectureInfoList;
     }
 
-
     public LectureInfo increaseCurrentRegistrationCnt(String lectureId) {
         return lectureRepository.increaseCurrentRegistrationCnt(lectureId);
+    }
+
+    public LectureInfo createLecture(String lectureId, LocalDateTime appliedAt) {
+        LectureInfo item = lectureRepository.insert(lectureId, appliedAt);
+        if (item == null) {
+            throw new LectureException(LectureError.NOT_FOUND_LECTURE);
+        }
+        return item;
     }
 }
