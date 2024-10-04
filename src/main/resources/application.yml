@@ -4,7 +4,8 @@ spring:
 
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:/db/lecture_registration_data
+#    url: jdbc:h2:/db/lecture_registration_data
+    url: jdbc:h2:mem:lecture-registration
     username: lowell
     password: lowell
 
@@ -15,8 +16,6 @@ spring:
 
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
