@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -101,6 +102,42 @@ public class LectureRegistrationIntegrationTest {
 
         List<LectureRegistrationInfo> items = lectureRegistrationFacade.getAllLectureRegistrations(new LectureCommand.SearchLectureRequest(lectureId, null));
         assertThat(items.size()).isEqualTo(30);
+
+    }
+
+    @DisplayName("이미 신청한 강의일 경우 예외가 발생한다.")
+    @Test
+    void throwException_when_already_applied_lecture() throws InterruptedException {
+        String lectureId = "lecture_1";
+        String userId = "student_1";
+        // 수강 신청 시도 횟수
+        int threadCnt = 5;
+
+        ExecutorService executorService = Executors.newFixedThreadPool(threadCnt);
+        CountDownLatch latch = new CountDownLatch(threadCnt);
+
+        AtomicInteger successCount = new AtomicInteger(0);
+        AtomicInteger failCount = new AtomicInteger(0);
+
+        for (int i = 0; i < threadCnt; i++) {
+            executorService.submit(() -> {
+                try {
+                    lectureRegistrationFacade.applyLectureRegistration(lectureId, userId);
+                    successCount.incrementAndGet();
+                } catch (Exception e) {
+                    log.error("## executor error[{}]", e.getMessage(), e);
+                    failCount.incrementAndGet();
+                }finally {
+                    latch.countDown();
+                }
+            });
+        }
+
+        latch.await();
+        executorService.shutdown();
+
+        assertThat(successCount.get()).isEqualTo(1);
+        assertThat(failCount.get()).isEqualTo(4);
 
     }
 }
